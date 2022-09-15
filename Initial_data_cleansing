@@ -1,0 +1,26 @@
+# Setup
+from textblob import TextBlob
+from textblob.sentiments import NaiveBayesAnalyzer
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+from nltk.probability import FreqDist
+import pandas as pd
+
+# Import
+# extra lines with no data present, need to remove
+rows_to_keep = range(0,21249)
+df = pd.read_csv("C:\\Users\\Devin\\Desktop\\School Work\\Graduate\\Fall 2022\\Capstone\\FAA_DATA.csv", 
+                skiprows = lambda x: x not in rows_to_keep)
+                
+# Data exploration and cleansing
+print(f'Instances: {len(df)}')
+print(df.dtypes)
+# Check for NAs
+df.isnull().values.any()
+# Lower case columns
+df.columns= df.columns.str.lower()
+# Remove white spaces and replace with "-""
+df.columns = df.columns.str.replace(' ', '_')
